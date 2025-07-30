@@ -8,27 +8,19 @@ void main() {
 }
 
 final bottomNavC = Get.put(BottomNavController());
-class MyApp extends StatelessWidget{
+class MyApp extends StatelessWidget {
   const MyApp({super.key});
 
   @override
   Widget build(BuildContext context) {
     return GetMaterialApp(
-        debugShowCheckedModeBanner: false,
-        home: Home());
-  }
-
-}
-class Home extends StatelessWidget{
-  @override
-  Widget build(BuildContext context) {
-
-    return Scaffold(
-      bottomNavigationBar: BottomNavBar(),
-      body: Obx(
-            () => bottomNavC.screens[bottomNavC.selectedIndex.value],
+      debugShowCheckedModeBanner: false,
+      home: Scaffold(
+        bottomNavigationBar: BottomNavBar(),
+        body: Obx(
+              () => bottomNavC.screens[bottomNavC.selectedIndex.value],
+        ),
       ),
     );
   }
 }
-
