@@ -14,7 +14,7 @@ class HomePage extends StatelessWidget {
           crossAxisCount: 2,
           crossAxisSpacing: 5.0,
           mainAxisSpacing: 8.0,
-          childAspectRatio: 0.74,
+          childAspectRatio: 0.60,
         ),
         itemCount: 20,
         itemBuilder: (context, index) {
