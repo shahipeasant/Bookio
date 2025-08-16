@@ -3,6 +3,7 @@ import 'package:get/get.dart';
 
 import '../models/book_model.dart';
 import '../widgets/productCard.dart';
+import 'description_page.dart';
 
 class Wishlist extends StatelessWidget {
   const Wishlist({super.key});
@@ -20,7 +21,13 @@ class Wishlist extends StatelessWidget {
             childAspectRatio: 0.60,
           ),
           itemBuilder: (context, index) {
-            return ProductCard(book: wishListBooks[index]);
+            return
+              GestureDetector(
+                  child: ProductCard(book: wishListBooks[index]),
+                  onTap: () {
+                    Get.to(() => DescriptionPage(book: wishListBooks[index]));
+                  }
+              );
           },
           itemCount: wishListBooks.length,
         ) :
