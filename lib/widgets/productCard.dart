@@ -1,7 +1,11 @@
 import 'package:flutter/material.dart';
+import 'package:get/get.dart';
+
+import '../models/book_model.dart';
 
 class ProductCard extends StatelessWidget {
-  const ProductCard({super.key});
+  final Book book;
+  const ProductCard({super.key, required this.book});
 
   @override
   Widget build(BuildContext context) {
@@ -15,24 +19,51 @@ class ProductCard extends StatelessWidget {
           color: Color(0xfff4d75e),
         ),
         child: Column(
+          crossAxisAlignment: CrossAxisAlignment.start,
           children: [
-            Container(
-              height: 200,
-              padding: EdgeInsets.all(16),
-              color: Colors.white,
-              child: Stack(children: []),
+            Stack(
+              children: [
+                Container(
+                  height: 150,
+                  padding: EdgeInsets.all(16),
+                  color: Colors.white,
+                ),
+                Positioned(
+                    top: 10,
+                    right: 10,
+                    child: Obx(
+                        () => Container(
+                          decoration: BoxDecoration(
+                            borderRadius: BorderRadius.circular(16),
+                          ),
+                          child: IconButton(
+                              icon: book.isWishlisted.value? Icon(Icons.favorite, color: Colors.red) : Icon(Icons.favorite_border),
+                              onPressed: (){
+                                book.isWishlisted.value = !book.isWishlisted.value;
+                                if(book.isWishlisted.value){
+                                  wishListBooks.add(book);
+                                }else{
+                                  wishListBooks.remove(book);
+                                }
+                              }
+                          ),
+                        ),
+                    ),
+                ),
+              ],
             ),
             Padding(
               padding: EdgeInsets.all(2.5),
               child: ListTile(
-                title: Text(
-                  'Fundamentals of Physics',
+                title:
+                Text(
+                  book.name,
                   overflow: TextOverflow.ellipsis,
                   maxLines: 2,
                   style: TextStyle(fontSize: 14),
                 ),
                 subtitle: Text(
-                  'Halliday, Resnick and Krane',
+                  book.author,
                   overflow: TextOverflow.ellipsis,
                   maxLines: 1,
                   style: TextStyle(fontSize: 12),
@@ -41,14 +72,21 @@ class ProductCard extends StatelessWidget {
               ),
             ),
             Row(
-              mainAxisAlignment: MainAxisAlignment.spaceEvenly,
               children: [
+                SizedBox(width: 15),
                 Chip(
-                  label: Text('Physics'),
+                  padding: EdgeInsets.only(left: 2.5),
+                  label: Text(book.genre),
                   backgroundColor: Color(0xfff4d75e),
                 ),
+              ],
+            ),
+            Row(
+              children: [
+                SizedBox(width: 15),
                 Chip(
-                  label: Text('Dhaka'),
+                  padding: EdgeInsets.only(left: 2.5),
+                  label: Text(book.location),
                   backgroundColor: Color(0xfff4d75e),
                 ),
               ],

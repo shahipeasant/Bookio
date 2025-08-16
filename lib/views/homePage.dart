@@ -1,3 +1,4 @@
+import 'package:bookio/models/book_model.dart';
 import 'package:flutter/material.dart';
 
 import '../widgets/productCard.dart';
@@ -16,10 +17,10 @@ class HomePage extends StatelessWidget {
           mainAxisSpacing: 8.0,
           childAspectRatio: 0.60,
         ),
-        itemCount: 20,
         itemBuilder: (context, index) {
-          return ProductCard();
+          return ProductCard(book: booksList[index]);
         },
+        itemCount: booksList.length,
       ),
     );
   }
