@@ -19,6 +19,24 @@ class Book{
   });
 }
 
+class MyBook{
+
+  String name;
+  String author;
+  String description;
+  String genre;
+  String location;
+
+  MyBook({
+    required this.name,
+    required this.author,
+    required this.description,
+    required this.genre,
+    required this.location,
+  });
+}
+
+
 List<Book> booksList = [
   Book(
       name: 'Fundamentals of Physics',
@@ -53,4 +71,4 @@ List<Book> booksList = [
   ),
 ];
 var wishListBooks = <Book>[].obs;
-List<Book> myBooks = [];
+var myBooks = <MyBook>[].obs;

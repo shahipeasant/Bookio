@@ -3,12 +3,14 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:bookio/views/homePage.dart';
 
+import '../views/myLibrary.dart';
+
 class BottomNavController extends GetxController{
   final Rx<int> selectedIndex = 0.obs;
   final screens = [
     HomePage(),
     Wishlist(),
-    Container(color: Colors.brown),
+    MyLibrary(),
     Container(color: Colors.orange),
   ];
 }

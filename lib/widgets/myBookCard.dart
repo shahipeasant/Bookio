@@ -3,10 +3,10 @@ import 'package:get/get.dart';
 
 import '../models/book_model.dart';
 
-class ProductCard extends StatelessWidget {
-  final Book book;
-  const ProductCard({super.key, required this.book});
+class Mybookcard extends StatelessWidget {
+  final MyBook myBook;
 
+  const Mybookcard({super.key, required this.myBook});
   @override
   Widget build(BuildContext context) {
     return Padding(
@@ -29,28 +29,6 @@ class ProductCard extends StatelessWidget {
                     padding: EdgeInsets.all(16),
                     color: Colors.white,
                   ),
-                  Positioned(
-                      top: 10,
-                      right: 10,
-                      child: Obx(
-                          () => Container(
-                            decoration: BoxDecoration(
-                              borderRadius: BorderRadius.circular(16),
-                            ),
-                            child: IconButton(
-                                icon: book.isWishlisted.value? Icon(Icons.favorite, color: Colors.red) : Icon(Icons.favorite_border),
-                                onPressed: (){
-                                  book.isWishlisted.value = !book.isWishlisted.value;
-                                  if(book.isWishlisted.value){
-                                    wishListBooks.add(book);
-                                  }else{
-                                    wishListBooks.remove(book);
-                                  }
-                                }
-                            ),
-                          ),
-                      ),
-                  ),
                 ],
               ),
             ),
@@ -61,13 +39,13 @@ class ProductCard extends StatelessWidget {
                 child: ListTile(
                   title:
                   Text(
-                    book.name,
+                    myBook.name,
                     overflow: TextOverflow.ellipsis,
                     maxLines: 2,
                     style: TextStyle(fontSize: 14),
                   ),
                   subtitle: Text(
-                    book.author,
+                    myBook.author,
                     overflow: TextOverflow.ellipsis,
                     maxLines: 1,
                     style: TextStyle(fontSize: 12),
@@ -83,7 +61,7 @@ class ProductCard extends StatelessWidget {
                   SizedBox(width: 15),
                   Chip(
                     padding: EdgeInsets.only(left: 2.5),
-                    label: Text(book.genre),
+                    label: Text(myBook.genre),
                     backgroundColor: Color(0xfff4d75e),
                   ),
                 ],
@@ -96,7 +74,7 @@ class ProductCard extends StatelessWidget {
                   SizedBox(width: 15),
                   Chip(
                     padding: EdgeInsets.only(left: 2.5),
-                    label: Text(book.location),
+                    label: Text(myBook.location),
                     backgroundColor: Color(0xfff4d75e),
                   ),
                 ],

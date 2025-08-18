@@ -18,6 +18,7 @@ class DescriptionPage extends StatelessWidget{
       ),
       body: SingleChildScrollView(
         child: Column(
+          crossAxisAlignment: CrossAxisAlignment.start,
           children: [
             SizedBox(height: 16),
             Text(
@@ -51,6 +52,7 @@ class DescriptionPage extends StatelessWidget{
                 fontSize: 16,
                 fontWeight: FontWeight.bold,
               ),
+                textAlign: TextAlign.left
             ),
             SizedBox(height: 12),
             Text(
@@ -59,6 +61,7 @@ class DescriptionPage extends StatelessWidget{
                 fontSize: 16,
                 fontWeight: FontWeight.bold,
               ),
+                textAlign: TextAlign.left
             ),
             SizedBox(height: 12),
             Text(
@@ -67,6 +70,7 @@ class DescriptionPage extends StatelessWidget{
                 fontSize: 16,
                 fontWeight: FontWeight.bold,
               ),
+                textAlign: TextAlign.left
             ),
             SizedBox(height: 12),
             ElevatedButton(
