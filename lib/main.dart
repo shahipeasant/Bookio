@@ -1,4 +1,6 @@
 import 'package:bookio/views/bottomNavBar.dart';
+import 'package:bookio/views/login_page.dart';
+import 'package:bookio/views/main_screen.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
@@ -8,6 +10,7 @@ void main() {
 }
 
 final bottomNavC = Get.put(BottomNavController());
+bool isLoggedIn = false;
 class MyApp extends StatelessWidget {
   const MyApp({super.key});
 
@@ -15,12 +18,7 @@ class MyApp extends StatelessWidget {
   Widget build(BuildContext context) {
     return GetMaterialApp(
       debugShowCheckedModeBanner: false,
-      home: Scaffold(
-        bottomNavigationBar: BottomNavBar(),
-        body: Obx(
-              () => bottomNavC.screens[bottomNavC.selectedIndex.value],
-        ),
-      ),
+      home: isLoggedIn ? MainScreen() : LoginPage(),
     );
   }
 }
