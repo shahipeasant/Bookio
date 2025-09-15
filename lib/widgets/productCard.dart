@@ -1,10 +1,11 @@
+import 'package:bookio/controllers/databasecontroller.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
 import '../models/book_model.dart';
 
 class ProductCard extends StatelessWidget {
-  final Book book;
+  final MyBook book;
   const ProductCard({super.key, required this.book});
 
   @override
@@ -38,13 +39,14 @@ class ProductCard extends StatelessWidget {
                               borderRadius: BorderRadius.circular(16),
                             ),
                             child: IconButton(
-                                icon: book.isWishlisted.value? Icon(Icons.favorite, color: Colors.red) : Icon(Icons.favorite_border),
+                                icon: wishListBooks.contains(book) ? Icon(Icons.favorite, color: Colors.red) : Icon(Icons.favorite_border),
                                 onPressed: (){
-                                  book.isWishlisted.value = !book.isWishlisted.value;
-                                  if(book.isWishlisted.value){
-                                    wishListBooks.add(book);
-                                  }else{
+                                  if(wishListBooks.contains(book)){
                                     wishListBooks.remove(book);
+                                    DatabaseController.to.removeFromWishlist(book.id);
+                                  }else{
+                                    wishListBooks.add(book);
+                                    DatabaseController.to.addToWishlist(book.id);
                                   }
                                 }
                             ),

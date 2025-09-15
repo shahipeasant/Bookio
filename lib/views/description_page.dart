@@ -1,11 +1,16 @@
+import 'package:firebase_database/firebase_database.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
+import '../controllers/auth_controller.dart';
+import '../controllers/databasecontroller.dart';
 import '../models/book_model.dart';
 
 class DescriptionPage extends StatelessWidget{
-  final Book book;
-  const DescriptionPage({super.key, required this.book});
+  final MyBook book;
+  DescriptionPage({super.key, required this.book});
+  
+  final Database = DatabaseController.to;
 
   @override
   Widget build(BuildContext context) {
@@ -73,6 +78,41 @@ class DescriptionPage extends StatelessWidget{
                 textAlign: TextAlign.left
             ),
             SizedBox(height: 12),
+            /*Text(
+              'Owner: ${Database.userRef.child(book.ownerID).child('username')}',
+              style: TextStyle(
+                fontSize: 16,
+                fontWeight: FontWeight.bold,
+              ),
+            ),*/
+            ElevatedButton(
+              onPressed: () async {
+                final processId = FirebaseDatabase.instance.ref().child('exchange_processes').push().key;
+                await FirebaseDatabase.instance.ref('exchange_processes/$processId').set({
+                  "id": processId,
+                  "fromUserId": AuthController.to.user!.uid,
+                  "toUserId": book.ownerID,
+                  "requestedBookId": book.id,
+                  "offeredBookId": null,
+                  "status": "pending",
+                  "steps": {
+                    "requested": true,
+                    "accepted": false,
+                    "deliveryPicked": false,
+                    "deliveryDelivered": false,
+                    "returnPicked": false,
+                    "returnDelivered": false
+                  },
+                  "createdAt": ServerValue.timestamp
+                });
+                Get.snackbar("Request Sent", "Your request has been sent to ${book.ownerID}");
+              },
+              child: Text("Request Book"),
+              style: ElevatedButton.styleFrom(
+                backgroundColor: Color(0xffd4b200),
+              ),
+            ),
+            SizedBox(height: 16),
             ElevatedButton(
               onPressed: () {
                 Get.back();

@@ -1,74 +1,66 @@
 import 'package:get/get.dart';
 
-class Book{
+import '../controllers/databasecontroller.dart';
 
-  String name;
-  String author;
-  String description;
-  String genre;
-  String location;
-  var isWishlisted = false.obs;
-
-  Book({
-    required this.name,
-    required this.author,
-    required this.description,
-    required this.genre,
-    required this.location,
-    required this.isWishlisted,
-  });
-}
-
-class MyBook{
-
-  String name;
-  String author;
-  String description;
-  String genre;
-  String location;
+class MyBook {
+  final String id;
+  final String name;
+  final String author;
+  final String description;
+  final String genre;
+  final String location;
+  final String ownerID;
 
   MyBook({
+    required this.id,
     required this.name,
     required this.author,
     required this.description,
     required this.genre,
     required this.location,
+    required this.ownerID,
   });
+
+  // 👇 Factory constructor for Firebase snapshots
+  factory MyBook.fromMap(String id, Map<String, dynamic> data) {
+    return MyBook(
+      id: id,
+      name: data["name"] ?? "",
+      author: data["author"] ?? "",
+      description: data["description"] ?? "",
+      genre: data["genre"] ?? "",
+      location: data["location"] ?? "",
+      ownerID: data["ownerId"] ?? "",
+    );
+  }
+
+  // 👇 Convert to map for uploading to Firebase
+  Map<String, dynamic> toMap() {
+    return {
+      "name": name,
+      "author": author,
+      "description": description,
+      "genre": genre,
+      "location": location,
+      "ownerId": ownerID,
+    };
+  }
+
+  @override
+  bool operator ==(Object other) =>
+      identical(this, other) ||
+      other is MyBook && runtimeType == other.runtimeType && id == other.id;
+
+  @override
+  int get hashCode => id.hashCode;
 }
 
+var booksList = <MyBook>[].obs;
+var wishListBooks = <MyBook>[].obs;
 
-List<Book> booksList = [
-  Book(
-      name: 'Fundamentals of Physics',
-      author: 'Halliday, Resnick and Krane',
-      description: 'A book on Physics',
-      genre: 'Physics',
-      location: 'Dhanmondi',
-      isWishlisted: false.obs,
-  ),
-  Book(
-      name: 'The Da Vinci Code',
-      author: 'Dan Brown',
-      description: 'A thriller novel',
-      genre: 'Thriller',
-      location: 'Mirpur',
-      isWishlisted: false.obs,
-  ),
-  Book(
-      name: 'The Alchemist',
-      author: 'Paulo Coelho',
-      description: 'A fantasy novel',
-      genre: 'Fantasy',
-      location: 'Kallyanpur',
-      isWishlisted: false.obs,
-  ),
-  Book(name: 'Advanced Engineering Mathematics',
-      author: 'H K Dass',
-      description: 'A book on Mathematics',
-      genre: 'Mathematics',
-      location: 'Dhanmondi',
-      isWishlisted: false.obs,
-  ),
-];
-var wishListBooks = <Book>[].obs;
-var myBooks = <MyBook>[].obs;
+var particularBooksList = <MyBook>[].obs;
+void loadUserBooks(String userId) {
+  particularBooksList.bindStream(DatabaseController.to.userBooks(userId));
+}
+
+var myBooksList = <MyBook>[].obs;

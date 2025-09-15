@@ -4,6 +4,7 @@ import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'controllers/bottomNavBarController.dart';
+import 'controllers/databasecontroller.dart';
 import 'firebase_options.dart';
 
 void main() async {
@@ -12,10 +13,11 @@ void main() async {
     options: DefaultFirebaseOptions.currentPlatform,
   );
   Get.put(AuthController(), permanent: true);
+  Get.put(DatabaseController(), permanent: true);
   runApp(MyApp());
 }
 
-final bottomNavC = Get.put(BottomNavController());
+
 class MyApp extends StatelessWidget {
   const MyApp({super.key});
 

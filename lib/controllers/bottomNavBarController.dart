@@ -1,3 +1,4 @@
+import 'package:bookio/views/processList.dart';
 import 'package:bookio/views/wishlist.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
@@ -11,6 +12,7 @@ class BottomNavController extends GetxController{
     HomePage(),
     Wishlist(),
     MyLibrary(),
+    ProcessesPage(),
     Container(color: Colors.orange),
   ];
 }

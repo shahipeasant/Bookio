@@ -2,9 +2,10 @@ import 'dart:async';
 import 'dart:core';
 
 import 'package:firebase_auth/firebase_auth.dart';
+import 'package:firebase_database/firebase_database.dart';
 import 'package:get/get.dart';
 
-
+import '../models/user_model.dart';
 
 class AuthController extends GetxController{
   static AuthController get to => Get.find();
@@ -41,7 +42,18 @@ class AuthController extends GetxController{
   //create account
   Future<void> register(String email, String password) async {
     await _auth.createUserWithEmailAndPassword(email: email, password: password);
-    // Get.offAllNamed('/main');
+
+    final currentUser = FirebaseAuth.instance.currentUser!;
+    final userModel = UserModel(
+      uid: currentUser.uid,
+      username: currentUser.displayName,   // from register form
+      email: currentUser.email!,
+      location: "Unknown",  // later editable
+    );
+
+    await FirebaseDatabase.instance
+        .ref("users/${currentUser.uid}")
+        .set(userModel.toMap());
   }
 
   //reset password

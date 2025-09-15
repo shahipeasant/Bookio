@@ -13,19 +13,6 @@ class MyLibrary extends StatelessWidget {
   Widget build(BuildContext context) {
     return Scaffold(
       backgroundColor: Color(0xfff4ebc3),
-      appBar: AppBar(
-        backgroundColor: Color(0xfff4d75e),
-        title: Text('My Library'),
-        centerTitle: true,
-        actions: [
-          IconButton(
-              onPressed: (){
-                Get.to(() => BookAddForm());
-              },
-              icon: Icon(Icons.add),
-          ),
-        ],
-      ),
       body: Obx(
         () => GridView.builder(
           gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
@@ -36,12 +23,19 @@ class MyLibrary extends StatelessWidget {
           ),
           itemBuilder: (context, index) {
             return GestureDetector(
-                child: Mybookcard(myBook: myBooks[index]),
+                child: Mybookcard(myBook: myBooksList[index]),
             );
           },
-          itemCount: myBooks.length,
+          itemCount: myBooksList.length,
         ),
       ),
+      floatingActionButton: FloatingActionButton(
+        backgroundColor: Color(0xffd4b200),
+        onPressed: () {
+          Get.to(() => BookAddForm());
+        },
+        child: Icon(Icons.add),
+      )
     );
   }
 }

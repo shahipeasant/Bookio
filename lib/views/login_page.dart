@@ -9,7 +9,8 @@ import 'homePage.dart';
 import 'main_screen.dart';
 
 class LoginPage extends StatefulWidget{
-  const LoginPage({super.key});
+  final VoidCallback onSwitch;
+  const LoginPage({super.key, required this.onSwitch});
 
   @override
   State<LoginPage> createState() => _LoginPageState();
@@ -99,7 +100,7 @@ class _LoginPageState extends State<LoginPage> {
               Text("Don't have an account?"),
               GestureDetector(
                 onTap: (){
-                  Get.to(() => RegisterPage());
+                  widget.onSwitch();
                 },
                 child: Text("Register now", style: TextStyle(fontWeight: FontWeight.bold)),
               ),

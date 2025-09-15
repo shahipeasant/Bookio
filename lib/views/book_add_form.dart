@@ -1,3 +1,4 @@
+import 'package:bookio/controllers/databasecontroller.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
@@ -12,6 +13,7 @@ class BookAddForm extends StatefulWidget {
 
 class _BookAddFormState extends State<BookAddForm> {
   final _formKey = GlobalKey<FormState>();
+  final DatabaseController db = DatabaseController.to;
 
   final TextEditingController nameController = TextEditingController();
   final TextEditingController authorController = TextEditingController();
@@ -32,15 +34,17 @@ class _BookAddFormState extends State<BookAddForm> {
   void _submitForm() {
     if (_formKey.currentState!.validate()) {
       final newBook = MyBook(
+        id: "", // temp, Firebase will assign real id
         name: nameController.text,
         author: authorController.text,
         description: descriptionController.text,
         genre: genreController.text,
         location: locationController.text,
+        ownerID: db.userId!,
       );
 
       // You can push this book into your observable list
-      myBooks.add(newBook);
+      DatabaseController.to.addBook(newBook);
 
       Navigator.pop(context, newBook); // Return book to previous page
     }

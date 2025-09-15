@@ -17,6 +17,7 @@ class BottomNavBar extends StatelessWidget {
           NavigationDestination(icon: Icon(Icons.home), label: 'Home'),
           NavigationDestination(icon: Icon(Icons.favorite), label: 'Wishlist'),
           NavigationDestination(icon: Icon(Icons.book), label: 'My Library'),
+          NavigationDestination(icon: Icon(Icons.request_page), label: 'Requests'),
           NavigationDestination(icon: Icon(Icons.account_circle), label: 'Profile'),
         ],
         backgroundColor: Color(0xfff4d75e),
